@@ -1,13 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_mvvm_architecture/res/routes/routes_name.dart';
 import 'package:get/get.dart';
 
 import '../../../models/login/user_model.dart';
-import '../../../repository/login/login_repository.dart';
+import '../../../repository/login_repository/login_repository.dart';
 import '../../../res/utils/utils.dart';
 import '../user_prefrences/user_prefrence_view_model.dart';
 
-class LoginController extends GetxController {
+class LoginViewModel extends GetxController {
   final RxBool loading = true.obs;
 
   final _api = LoginRepository();
@@ -30,10 +31,11 @@ class LoginController extends GetxController {
       if (value['error'.tr] == 'user_not_found'.tr) {
         Utils.snackBar('login'.tr, value['error'.tr]);
       } else {
-        userPrefences
-            .saveUser(UserModel.fromJson(value))
-            .then((value) {})
-            .onError((error, stackTrace) {});
+        UserModel userModel = UserModel(token: value['token'], isLogin: true);
+        userPrefences.saveUser(userModel).then((value) {
+          Get.delete<LoginViewModel>();
+          Get.toNamed(RouteName.homeView)!.then((value) {});
+        }).onError((error, stackTrace) {});
         Utils.snackBar('logined'.tr, 'Login successfully.');
       }
     }).onError((error, stackTrace) {

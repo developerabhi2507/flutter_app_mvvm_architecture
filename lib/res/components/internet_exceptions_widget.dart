@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_mvvm_architecture/res/components/round_button.dart';
 
 import '../colors/app_color.dart';
 
 class InternetExceptionWidget extends StatefulWidget {
-  const InternetExceptionWidget({super.key});
+  const InternetExceptionWidget({super.key, required this.onPress});
+  final VoidCallback onPress;
 
   @override
   State<InternetExceptionWidget> createState() =>
@@ -13,15 +15,16 @@ class InternetExceptionWidget extends StatefulWidget {
 class _InternetExceptionWidgetState extends State<InternetExceptionWidget> {
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
-          Icon(
+          const Icon(
             Icons.cloud_off,
             color: AppColor.blackColor,
           ),
-          Text('data')
+          const Text('data'),
+          RoundButton(title: 'Retry', onPress: () => widget.onPress)
         ],
       ),
     );

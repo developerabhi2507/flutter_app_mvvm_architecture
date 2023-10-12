@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_mvvm_architecture/res/components/round_button.dart';
 
 import '../colors/app_color.dart';
 
 class GeneralExceptionWidget extends StatefulWidget {
-  const GeneralExceptionWidget({super.key});
+  const GeneralExceptionWidget({super.key, required this.onPress});
+  final VoidCallback onPress;
 
   @override
   State<GeneralExceptionWidget> createState() => _GeneralExceptionWidgetState();
@@ -12,15 +14,16 @@ class GeneralExceptionWidget extends StatefulWidget {
 class _GeneralExceptionWidgetState extends State<GeneralExceptionWidget> {
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
-          Icon(
+          const Icon(
             Icons.cloud_off,
             color: AppColor.blackColor,
           ),
-          Text('data')
+          const Text('data'),
+          RoundButton(title: 'Retry', onPress: () => widget.onPress)
         ],
       ),
     );
