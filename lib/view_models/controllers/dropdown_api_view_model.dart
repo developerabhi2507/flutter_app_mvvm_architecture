@@ -7,28 +7,28 @@ import 'package:get/get.dart';
 class DropDownApiViewModel extends GetxController {
   final _api = DropdownRepository();
   final rxRequestStatus = Status.LOADING.obs;
-  final dropdownList = DropdownModel().obs as List;
+  final dropdownList = <DropdownModel>[].obs;
   RxString error = ''.obs;
 
-  void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value;
-  void setUserList(DropdownModel _value) => dropdownList.map((e) {
-    final map = e as Map<String, dynamic>;
-    
-  }) = _value;
-  void setError(String _value) => error.value = _value;
+  void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+  void setUserList(List<DropdownModel> value) => dropdownList.value = value;
+  void setError(String value) => error.value = value;
 
-  void userListApi() {
-    _api.dropdownListApi().then((value) {
+  Future<List<DropdownModel>> userListApi() async {
+    try {
+      final value = await _api.dropdownListApi();
       setRxRequestStatus(Status.COMPLETED);
       setUserList(value);
-    }).onError((error, stackTrace) {
+      return value;
+    } catch (error, stackTrace) {
       if (kDebugMode) {
         print(error);
         print(stackTrace);
       }
       setError(error.toString());
       setRxRequestStatus(Status.ERROR);
-    });
+      throw error; // Rethrow the error to propagate it up the call chain.
+    }
   }
 
   void refreshApi() {
