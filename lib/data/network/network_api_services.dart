@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_app_mvvm_architecture/res/app_url/app_url.dart';
 
 import '../app_exceptions.dart';
 import 'base_api_serivces.dart';
@@ -19,6 +20,11 @@ class NetworkApiServices extends BaseApiServices {
       throw InternetException('');
     } on RequestTimeOut {
       throw RequestTimeOut('');
+    } on DioException {
+      throw DioException(
+          requestOptions: RequestOptions(
+        baseUrl: AppUrl.baseUrl,
+      ));
     }
     return responseJson;
   }

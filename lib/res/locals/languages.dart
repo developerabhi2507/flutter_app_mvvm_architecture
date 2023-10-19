@@ -92,7 +92,7 @@ class Languages extends Translations {
 
           // Title of Snackbar
           'login': 'Login',
-          'error': 'Error',
+          'error': 'error',
 
           // Messages of Snackbar
           'logined': 'Login successfully',
@@ -100,7 +100,8 @@ class Languages extends Translations {
           // Exceptions
           'internet_exception':
               'Your partner code was given to you by your service provider.',
-          'user_not_found': 'User not found.'
+          'user_not_found': 'user not found.',
+          'format_exception': 'Unable to process the data.'
         },
 
         //Hindi language

@@ -4,8 +4,8 @@ import 'package:flutter_app_mvvm_architecture/view_models/controllers/login/logi
 import 'package:get/get.dart';
 
 class LoginButtonWidget extends StatelessWidget {
-  final forkey;
-  LoginButtonWidget({super.key, required this.forkey});
+  final formkey;
+  LoginButtonWidget({super.key, required this.formkey});
   final loginViewModel = Get.put(LoginViewModel());
 
   @override
@@ -15,7 +15,7 @@ class LoginButtonWidget extends StatelessWidget {
         title: 'Submit',
         loading: loginViewModel.loading.value,
         onPress: () {
-          if (forkey.currentState!.validate()) {
+          if (formkey.currentState!.validate()) {
             loginViewModel.loginApi();
           }
         }));

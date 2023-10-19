@@ -1,3 +1,4 @@
+import 'package:flutter_app_mvvm_architecture/view/home/home_view.dart';
 import 'package:flutter_app_mvvm_architecture/view/login/login_view.dart';
 import 'package:get/get.dart';
 
@@ -15,6 +16,11 @@ class AppRoutes {
         GetPage(
             name: RouteName.loginView,
             page: () => const LoginView(),
+            transitionDuration: const Duration(milliseconds: 100),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RouteName.homeView,
+            page: () => const HomeView(),
             transitionDuration: const Duration(milliseconds: 100),
             transition: Transition.leftToRightWithFade),
       ];
