@@ -29,7 +29,10 @@ class LoginViewModel extends GetxController {
     };
     _api.loginApi(data).then((value) {
       loading.value = false;
-      if (value['user_not_found'.tr]) {
+      if (kDebugMode) {
+        print('value: {{$value}}');
+      }
+      if (value['error']) {
         Utils.snackBar('login'.tr, value['user_not_found'.tr]);
       } else {
         UserModel userModel = UserModel(token: value['token'], isLogin: true);
@@ -41,11 +44,23 @@ class LoginViewModel extends GetxController {
       }
     }).onError((error, stackTrace) {
       if (kDebugMode) {
-        print('${error}user not found');
+        print('errror: {$error}');
       }
       loading.value = false;
 
-      Utils.snackBar('error'.tr, error.toString());
+      // Utils.snackBar('errorrrrr', error.toString());
+    });
+  }
+
+  void newLoginApi() {
+    loading.value = true;
+    Map data = {
+      'email': emailController.value.text,
+      'password': passwordController.value.text
+    };
+    _api.loginApi(data).then((value) {
+      loading.value = false;
+      if (value['']) {}
     });
   }
 }
